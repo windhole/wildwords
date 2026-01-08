@@ -1,16 +1,24 @@
 ---
+import { getCollection } from 'astro:content';
 
+// wildwordsコレクションから全データを取得
+const terms = await getCollection('wildwords');
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title>Wild Words</title>
+  </head>
+  <body>
+    <h1>List</h1>
+    <ul>
+      {terms.map(entry => (
+        <li>
+          <strong>{entry.data.term}</strong> ({entry.data.reading})<br />
+          {entry.data.description}
+        </li>
+      ))}
+    </ul>
+  </body>
 </html>
