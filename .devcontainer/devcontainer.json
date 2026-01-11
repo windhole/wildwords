@@ -1,0 +1,28 @@
+{
+  "name": "Astro Development Environment",
+  // Node.js 20がインストールされた公式イメージを使用
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
+
+  "customizations": {
+    "vscode": {
+      // コンテナに入った時に自動でインストールされる拡張機能
+      "extensions": [
+        "astro-build.astro-vscode",
+        "esbenp.prettier-vscode"
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+      }
+    }
+  },
+
+  // Astroのポート(4321)を自分のPCで使えるようにする
+  "forwardPorts": [4321],
+
+  // コンテナが作られた後に自動でライブラリをインストール
+  "postCreateCommand": "npm install",
+
+  // セキュリティのためnodeユーザーで実行
+  "remoteUser": "node"
+}

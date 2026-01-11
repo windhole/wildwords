@@ -1,24 +1,35 @@
 ---
-import { getCollection } from 'astro:content';
-
-// wildwordsコレクションから全データを取得
-const terms = await getCollection('wildwords');
+import '../styles/global.css';
+const title = "windhole docs";
 ---
 
 <html lang="ja">
   <head>
     <meta charset="utf-8" />
-    <title>Wild Words</title>
+    <meta name="viewport" content="width=device-width" />
+    <title>{title}</title>
   </head>
-  <body>
-    <h1>List</h1>
-    <ul>
-      {terms.map(entry => (
-        <li>
-          <strong>{entry.data.term}</strong> ({entry.data.reading})<br />
-          {entry.data.description}
-        </li>
-      ))}
-    </ul>
+  <body class="bg-slate-50 text-slate-900 font-sans">
+    <header class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-20 px-4 text-center shadow-lg">
+      <h1 class="text-5xl font-extrabold tracking-tight mb-4 animate-bounce">
+        {title}
+      </h1>
+      <p class="text-xl text-indigo-100">
+        Astro + Tailwind CSS + DevContainer で構築中
+      </p>
+    </header>
+    
+    <main class="max-auto max-w-4xl px-6 py-12">
+      <section class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+        <h2 class="text-2xl font-bold mb-4 text-indigo-600">こんにちは！</h2>
+        <p class="text-slate-600 leading-relaxed mb-6">
+          Tailwind CSSを導入したことで、CSSファイルに一行も書かずに、HTMLのクラス名（utility classes）だけでこれだけのデザインができるようになりました。
+        </p>
+        
+        <button class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-8 rounded-full transition-all transform hover:scale-105 shadow-md">
+          詳しく見る
+        </button>
+      </section>
+    </main>
   </body>
 </html>
