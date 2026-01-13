@@ -1,38 +1,50 @@
 ---
+import { getCollection } from 'astro:content';
 import '../styles/global.css';
-const title = "windhole docs";
+
+// 全データを取得
+const allTerms = await getCollection('wildwords');
+
+// 「読み(reading)」を使ってあいうえお順に並べ替え
+const sortedTerms = allTerms.sort((a, b) => 
+  a.data.reading.localeCompare(b.data.reading, 'ja')
+);
 ---
 
 <html lang="ja">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>{title}</title>
+    <title>Wildwords 用語集</title>
   </head>
   <body class="bg-slate-50 text-slate-900 font-sans">
-    <header class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-20 px-4 text-center shadow-lg">
-      <h1 class="text-5xl font-extrabold tracking-tight mb-4 animate-bounce">
-        {title}
+    <main class="max-w-4xl mx-auto p-6 py-12">
+      <h1 class="text-4xl font-black mb-10 text-slate-800 border-b-4 border-indigo-500 pb-4 inline-block">
+        Wildwords 用語集
       </h1>
-      <p class="text-xl text-indigo-100">
-        windholeのドキュメントサイト実験室
-      </p>
-    </header>
-    
-    <main class="max-auto max-w-4xl px-6 py-12">
-      <section class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
-        <h2 class="text-2xl font-bold mb-4 text-indigo-600">ようこそ！</h2>
-        <p class="text-slate-600 leading-relaxed mb-6">
-          Astro + Tailwind CSS + DevContainer + Cloudflare Pagesで構築しています。
-        </p>
-        <p class="text-slate-600 leading-relaxed mb-6">
-          いろいろと実験中。
-        </p>
-        
-        <button class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-8 rounded-full transition-all transform hover:scale-105 shadow-md">
-          ボタンの例
-        </button>
-      </section>
+
+      <div class="grid gap-6">
+        {sortedTerms.map((term) => (
+          <div class="block p-6 bg-white rounded-2xl shadow-sm border border-slate-200 hover:border-indigo-400 hover:shadow-md transition-all group">
+            <div class="flex items-center justify-between mb-3">
+              <h2 class="text-2xl font-bold text-indigo-600 group-hover:text-indigo-700">
+                {term.data.title}
+              </h2>
+              {term.data.category && (
+                <span class="text-xs font-bold px-3 py-1 bg-indigo-50 text-indigo-600 rounded-full border border-indigo-100 uppercase tracking-wider">
+                  {term.data.category}
+                </span>
+              )}
+            </div>
+            <p class="text-slate-600 leading-relaxed italic mb-4">
+              {term.data.description}
+            </p>
+            <div class="text-sm text-slate-400">
+              更新日: {term.data.updatedDate.toLocaleDateString('ja-JP')}
+            </div>
+          </div>
+        ))}
+      </div>
     </main>
   </body>
 </html>
