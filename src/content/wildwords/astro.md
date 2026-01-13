@@ -1,7 +1,10 @@
 ---
-term: "Astro"
+title: "Astro"
 reading: "あすとろ"
-description: "コンテンツ主体のサイトを高速に構築するためのモダンなWebフレームワーク。"
+description: "コンテンツにフォーカスした、高速な静的サイトを構築するためのWebフレームワーク。"
+category: "Framework"
+relatedTerms: ["TypeScript", "Tailwind CSS"]
+updatedDate: 2026-01-13
 ---
 
 # Astroとは
